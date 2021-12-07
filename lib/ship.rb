@@ -5,4 +5,8 @@ class Ship
     @name = name
     @length = length
   end
+  # Assigns the method health equal to the length of the ship class
+  def health
+    health = length
+  end
 end
