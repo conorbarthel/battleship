@@ -9,6 +9,7 @@ RSpec.describe 'ship' do
     expect(cruiser.length).to eq(3)
   #I think we want to initialize health and add to attr_reader
     expect(cruiser.health).to eq(cruiser.length)
+    expect(cruiser.health).to eq(3)
   end
 
   describe '#sunk?' do
@@ -23,8 +24,8 @@ RSpec.describe 'ship' do
     it 'removes 1 health from ship' do
       cruiser = Ship.new("Cruiser", 3)
       cruiser.hit
-      
-      expect()
+  #removes one from health counter
+      expect(cruiser.health).to eq(2)
     end
   end
 
