@@ -9,4 +9,12 @@ class Ship
   def health
     health = length
   end
+  # When the length of a ship is equal to zero return true, that it did sink
+  def sunk?
+    if @length == 0
+      return true
+    else
+      return false
+    end
+  end
 end
