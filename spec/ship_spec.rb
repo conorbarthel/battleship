@@ -26,6 +26,10 @@ RSpec.describe 'ship' do
       cruiser.hit
   #removes one from health counter
       expect(cruiser.health).to eq(2)
+      cruiser.hit
+      expect(cruiser.health).to eq(1)
+      cruiser.hit
+      expect(cruiser.sunk?).to eq(true)
     end
   end
 
