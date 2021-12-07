@@ -17,4 +17,10 @@ class Ship
       return false
     end
   end
+  # Subtract one length from the ship that got hit
+  def hit
+    x = @length
+    @length = x - 1
+    return @length
+  end
 end
