@@ -29,7 +29,10 @@ end
   end
 
   it "fire upon" do
-    
+    cell = Cell.new("B4")
+    cell.fire_upon
+    expects(cell.ship.health).to eq(2)
+    expects(cell.fire_upon?).to eq(true)
   end
 
 
