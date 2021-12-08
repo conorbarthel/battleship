@@ -1,6 +1,7 @@
+require 'pry'
 require './lib/ship'
 require './lib/cell'
-Rspec.describe "cell" do
+RSpec.describe "cell" do
   #Tests to see if the cell instance exists
   it "initalizes" do
     cell = Cell.new("B4")
@@ -12,14 +13,15 @@ end
 
   it "is empty?" do
     cell = Cell.new("B4")
-    expect(cell.empty?).to (true)
+    expect(cell.empty?).to eq(true)
   end
 
   it "places ship" do
     cell = Cell.new("B4")
+    cruiser = Ship.new("Cruiser", 3)
     cell.place_ship(cruiser)
     #checks to see if the ship was placed, nothing is returned
-    expect(cell.ship).to eq(Ship)
+    expect(cell.ship).to be_a(Ship)
   end
 
   it "fired upon?" do
@@ -30,9 +32,13 @@ end
 
   it "fire upon" do
     cell = Cell.new("B4")
+    cruiser = Ship.new("Cruiser", 3)
+    cell.place_ship(cruiser)
     cell.fire_upon
-    expects(cell.ship.health).to eq(2)
-    expects(cell.fire_upon?).to eq(true)
+
+
+    expect(cell.ship.health).to eq(2)
+    expect(cell.fired_upon?).to eq(true)
   end
 
 
