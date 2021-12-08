@@ -17,17 +17,19 @@ end
 
   it "places ship" do
     cell = Cell.new("B4")
+    cell.place_ship(cruiser)
     #checks to see if the ship was placed, nothing is returned
-    expect(cell.ship(cruiser)).to eq(Ship)
+    expect(cell.ship).to eq(Ship)
   end
 
-  # it "fired upon?" do
-  #   cell = Cell.new("B4")
-  #   #returns a boolean depending on if the cell is equal to: X, H, M, etc
-  #   expect(cell.fired_upon?).to eq(false)
-  #   #nothing is returned but changes the cell to X
-  #   expect(cell.fire_upon).to (x) #I'm not very comfident if this is what we should test
-  #   #there's no need to test cell.ship.health because it was already tested in the ship_spec file
+  it "fired upon?" do
+    cell = Cell.new("B4")
+    #returns a boolean depending on if the cell is equal to: X, H, M, etc
+    expect(cell.fired_upon?).to eq(false)
+  end
+
+  it "fire upon" do
+    
   end
 
 
