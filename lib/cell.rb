@@ -12,7 +12,7 @@ class Cell
     @ship.nil?
   end
 #adds a ship to the cell
-  def place_ship(ship)
+  def place_ship(ship) #Might need to be @cell = ship for later work
     @ship = ship
   end
 #determines if the cell has been fired on
@@ -28,4 +28,19 @@ class Cell
     end
   end
 
+  def render(display = false)
+    var = "."
+    @display = display
+    if display == true
+      var = "S"
+    elsif fired_upon? && empty?
+      var = "M"
+    elsif fired_upon? && empty? == false && @ship.sunk? == false
+      var = "H"
+    elsif fired_upon? && @ship.sunk?
+      var = "X"
+    end
+    p var
+  end
 end
+#Dont forget to commit
