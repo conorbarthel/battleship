@@ -95,6 +95,7 @@ end
       expect(cell_2.render).to eq("H")
       cruiser.hit
     end
+
     it "prints 'X'" do
       cell_1 = Cell.new("B4")
       cruiser = Ship.new("Cruiser", 3)
@@ -112,10 +113,5 @@ end
       cruiser.hit
       expect(cell_2.render).to eq("X")
     end
-
   end
-
-
-
-
 end

@@ -6,17 +6,17 @@ RSpec.describe 'ship' do
     expect(cruiser).to be_a Ship
     #attr_reader is added
     expect(cruiser.name).to eq("Cruiser")
-    expect(cruiser.length).to eq(3)
-  #I think we want to initialize health and add to attr_reader
+    expect(cruiser.health).to eq(3)
+
     expect(cruiser.health).to eq(cruiser.length)
     expect(cruiser.health).to eq(3)
   end
 
   describe '#sunk?' do
     it 'returns boolean for ship sunk' do
-      cruiser = Ship.new("Cruiser", 3)
+      cruiser = Ship.new("Cruiser", 0)
 #should check that health is > 0
-      expect(cruiser.sunk?).to eq(false)
+      expect(cruiser.sunk?).to eq(true)
     end
   end
 
