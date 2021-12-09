@@ -23,11 +23,11 @@ class Board
     }
   end
 
-  def valid_placement?
-    if 
-    else
-      true
-    end
-  end
+  # def valid_placement?
+  #   if
+  #   else
+  #     true
+  #   end
+  # end
 
 end
