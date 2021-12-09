@@ -9,14 +9,10 @@ class Ship
 
   # When the length of a ship is equal to zero return true, that it did sink
   def sunk?
-    if @health == 0
-      return true
-    else
-      return false
-    end
+    @health == 0
   end
   # Subtract one length from the ship that got hit
   def hit
-    @health = @health -= 1
+    @health -= 1
   end
 end
