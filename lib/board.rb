@@ -22,4 +22,12 @@ class Board
      "D4" => cell_1 = Cell.new("D4")
     }
   end
+
+  def valid_placement?
+    if 
+    else
+      true
+    end
+  end
+
 end
