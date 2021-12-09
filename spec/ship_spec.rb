@@ -29,7 +29,7 @@ RSpec.describe 'ship' do
       cruiser.hit
       expect(cruiser.health).to eq(1)
       cruiser.hit
-  #Three hits should sink ship 
+  #Three hits should sink ship
       expect(cruiser.sunk?).to eq(true)
     end
   end
