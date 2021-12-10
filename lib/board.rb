@@ -23,12 +23,13 @@ class Board
     }
   end
 
-  def get_keys
-    @cells.keys
-  end
+  # def get_keys
+  #   @cells.keys
+  # end
 
   def valid_coordinate?(cord)
-    get_keys.any?(cord)
+    @cells.keys.any?(cord)
+    # get_keys.any?(cord)
   end
 
   def split_cords(cords)
@@ -39,20 +40,20 @@ class Board
   end
 
   def first(cords)
-    first = check(cords).map do |cord|
+    first = split_cords(cords).map do |cord|
       cord.first
     end
   end
 
   def last(cords)
-    last = check(cords).map do |cord|
-      cord.last
+    last = split_cords(cords).map do |cord|
+      cord.last.to_i
     end
   end
 
   def num_consec?(cords)
     last(cords).each_cons(2) do |pair|
-     return false if pair[0].next != pair[1]-1
+     return false if pair[0].next != pair[1]
     end
     true
   end
@@ -65,18 +66,24 @@ class Board
   end
 
   def valid_placement?(ship, cordinates)
-    cords = split_cords(cordinates)
-    if @ship.length != cordinates.size
+    #cords = split_cords(cordinates)
+    #binding.pry
+    if cordinates.each do |cord|
+      valid_coordinate?(cord)
+    end
+    false
+    elsif ship.length != cordinates.size
       false
-    elsif !alpha_consec?(cords) || !num_consec?(cords)
+    elsif num_consec?(cordinates) && first(cordinates).all?(first(cordinates)[0])
+      true
+    elsif alpha_consec?(cordinates) && last(cordinates).all?(last(cordinates)[0])
+      true
+    elsif cordinates.uniq!.size != cordinates.size
       false
-    elsif cords[0] ==
-    elsif alpha_consec?(cords) && last(cords).all?(last(cords)[0])
-      true
-    elsif num_consec?(cords) && first(cords).all?(first(cords)[0])
-      true
+    # elsif alpha_consec?(cordinates) == false || num_consec?(cordinates) == false
+    #   false
+    else
+      false
     end
   end
-
-
 end
