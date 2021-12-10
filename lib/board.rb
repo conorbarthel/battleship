@@ -23,9 +23,48 @@ class Board
     }
   end
 
-  def valid_placement?
-    if 
-    else
+  def split_cords(cords)
+  split_elements = cords.map do |cord|
+    cord.split("")
+    end
+    split_elements
+  end
+
+  def first(cords)
+    first = check(cords).map do |cord|
+      cord.first
+    end
+  end
+
+  def last(cords)
+    last = check(cords).map do |cord|
+      cord.last
+    end
+  end
+
+  def num_consec?(cords)
+    last(cords).each_cons(2) do |two_things|
+     return false if two_things[0].next != two_things[1]-1
+    end
+    true
+  end
+
+  def alpha_consec?(cords)
+    first(cords).each_cons(2) do |two_things|
+     return false if two_things[0].next != two_things[1]
+    end
+    true
+  end
+
+  def valid_placement?(ship, cordinates)
+    cords = split_cords(cordinates)
+    if @ship.length != cordinates.size
+      false
+    elsif !alpha_consec?(cords) || !num_consec?(cords)
+      false
+    elsif alpha_consec?(cords) && last(cords).all?(last(cords)[0])
+      true
+    elsif num_consec?(cords) && first(cords).all?(first(cords)[0])
       true
     end
   end
