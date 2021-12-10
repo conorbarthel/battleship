@@ -31,12 +31,5 @@ RSpec.describe "Board" do
       expect(board.valid_coordinate?("E1")).to be(true)
       expect(board.valid_coordinate?("A22")).to be(false)
     end
-
-    xit "validates_placements" do
-      board = Board.new
-
-      expect(board)
-    end
-
   end
 end

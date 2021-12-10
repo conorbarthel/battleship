@@ -22,5 +22,4 @@ class Board
      "D4" => cell_1 = Cell.new("D4")
     }
   end
-
 end
