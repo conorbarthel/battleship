@@ -43,15 +43,15 @@ class Board
   end
 
   def num_consec?(cords)
-    last(cords).each_cons(2) do |two_things|
-     return false if two_things[0].next != two_things[1]-1
+    last(cords).each_cons(2) do |pair|
+     return false if pair[0].next != pair[1]-1
     end
     true
   end
 
   def alpha_consec?(cords)
-    first(cords).each_cons(2) do |two_things|
-     return false if two_things[0].next != two_things[1]
+    first(cords).each_cons(2) do |pair|
+     return false if pair[0].next != pair[1]
     end
     true
   end
@@ -62,6 +62,7 @@ class Board
       false
     elsif !alpha_consec?(cords) || !num_consec?(cords)
       false
+    elsif cords[0] ==
     elsif alpha_consec?(cords) && last(cords).all?(last(cords)[0])
       true
     elsif num_consec?(cords) && first(cords).all?(first(cords)[0])
