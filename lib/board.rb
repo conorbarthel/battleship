@@ -23,12 +23,17 @@ class Board
     }
   end
 
-  def get_keys
-    @cells.keys
+  def valid_coordinate?(cord)
+    @cells.keys.any?(cord)
   end
 
-  def valid_coordinate?(cord)
-    get_keys.any?(cord)
+
+  def place(ship, coords)
+    coords.each do |coord|
+      if coord == @cells[coord].coordinate
+        @cells[coord].place_ship(ship)
+      end
+    end
   end
 
   def split_cords(cords)
@@ -39,43 +44,50 @@ class Board
   end
 
   def first(cords)
-    first = check(cords).map do |cord|
+    first = split_cords(cords).map do |cord|
       cord.first
     end
   end
 
   def last(cords)
-    last = check(cords).map do |cord|
-      cord.last
+    last = split_cords(cords).map do |cord|
+      cord.last.to_i
     end
   end
 
   def num_consec?(cords)
-    last(cords).each_cons(2) do |two_things|
-     return false if two_things[0].next != two_things[1]-1
+    last(cords).each_cons(2) do |pair|
+     return false if pair[0].next != pair[1]
     end
     true
   end
 
   def alpha_consec?(cords)
-    first(cords).each_cons(2) do |two_things|
-     return false if two_things[0].next != two_things[1]
+    first(cords).each_cons(2) do |pair|
+     return false if pair[0].next != pair[1]
     end
     true
   end
 
   def valid_placement?(ship, cordinates)
-    cords = split_cords(cordinates)
-    if @ship.length != cordinates.size
+    if ship.length != cordinates.size
       false
-    elsif !alpha_consec?(cords) || !num_consec?(cords)
+    elsif num_consec?(cordinates) && first(cordinates).all?(first(cordinates)[0])
+      true
+    elsif alpha_consec?(cordinates) && last(cordinates).all?(last(cordinates)[0])
+      true
+    else
       false
-    elsif alpha_consec?(cords) && last(cords).all?(last(cords)[0])
-      true
-    elsif num_consec?(cords) && first(cords).all?(first(cords)[0])
-      true
     end
+    #binding.pry
   end
-
-
 end
+
+# elsif cordinates.uniq!.size != cordinates.size
+#   false
+# elsif alpha_consec?(cordinates) == false || num_consec?(cordinates) == false
+#   false
+#cords = split_cords(cordinates)
+# if cordinates.each do |cord|
+#   !(valid_coordinate?(cord))
+# end
