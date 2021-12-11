@@ -36,12 +36,12 @@ RSpec.describe "Board" do
       expect(board.valid_coordinate?("A22")).to be(false)
     end
 
-    describe "valid_placment?" do
+    describe "valid_placement?" do
       it "placment is valid" do
         board = Board.new
         cruiser = Ship.new("Cruiser", 3)
         submarine = Ship.new("Submarine", 2)
-        expect(board.valid_placment?(cruiser, ["A1", "A2"])).to eq(false)
+        expect(board.valid_placement?(cruiser, ["A1", "A2"])).to eq(false)
         expect(board.valid_placement?(submarine, ["A2", "A3", "A4"])).to eq(false)
         expect(board.valid_placement?(cruiser, ["A1", "A2", "A4"])).to eq(false)
         expect(board.valid_placement?(submarine, ["A1", "C1"])).to eq(false)
@@ -51,6 +51,22 @@ RSpec.describe "Board" do
         expect(board.valid_placement?(submarine, ["C2", "D3"])).to eq(false)
         expect(board.valid_placement?(submarine, ["A1", "A2"])).to eq(true)
         expect(board.valid_placement?(cruiser, ["B1", "C1", "D1"])).to eq(true)
+      end
+    end
+
+    describe "Placing ships" do
+      it "places" do
+        board = Board.new
+        cruiser = Ship.new("Cruiser", 3)
+        board.place(cruiser, ["A1", "A2", "A3"])
+        cell_1 = board.cells["A1"]
+        cell_2 = board.cells["A2"]
+        cell_3 = board.cells["A3"]
+        cell_1.ship
+        cell_2.ship
+        cell_3.ship
+        expect(cell_3.ship).to eq(cell_2.ship)
+        expect(cell_1.empty?).to eq(false)
       end
     end
   end
