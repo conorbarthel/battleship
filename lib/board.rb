@@ -1,4 +1,5 @@
-require './lib/cell'
+require './lib/ship.rb'
+require './lib/cell.rb'
 class Board
   attr_reader  :cells
 
@@ -66,7 +67,7 @@ class Board
 
   def valid_placement?(ship, cordinates)
     cords = split_cords(cordinates)
-    if @ship.length != cordinates.size
+    if ship.length != cordinates.size
       false
     elsif !alpha_consec?(cords) || !num_consec?(cords)
       false
@@ -79,7 +80,6 @@ class Board
 
   def render_board(display = false)
     @display = display
-    
   end
 
 
