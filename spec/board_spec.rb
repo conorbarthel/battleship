@@ -37,7 +37,7 @@ RSpec.describe "Board" do
     end
 
     describe "valid_placment?" do
-      it "placment is valid" do
+      xit "placment is valid" do
         board = Board.new
         cruiser = Ship.new("Cruiser", 3)
         submarine = Ship.new("Submarine", 2)
@@ -55,7 +55,7 @@ RSpec.describe "Board" do
     end
 
     describe "rendering the board" do
-      xit "checks for board" do
+      it "checks for board" do
         board = Board.new
         cruiser = Ship.new("Cruiser", 3)
         board.place(cruiser, ["A1", "A2", "A3"])
