@@ -77,5 +77,10 @@ class Board
     end
   end
 
+  def render_board(display = false)
+    @display = display
+    
+  end
+
 
 end
