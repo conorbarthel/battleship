@@ -23,13 +23,17 @@ class Board
     }
   end
 
-  # def get_keys
-  #   @cells.keys
-  # end
-
   def valid_coordinate?(cord)
     @cells.keys.any?(cord)
-    # get_keys.any?(cord)
+  end
+
+
+  def place(ship, coords)
+    coords.each do |coord|
+      if coord == @cells[coord].coordinate
+        @cells[coord].place_ship(ship)
+      end
+    end
   end
 
   def split_cords(cords)
@@ -66,24 +70,24 @@ class Board
   end
 
   def valid_placement?(ship, cordinates)
-    #cords = split_cords(cordinates)
-    #binding.pry
-    if cordinates.each do |cord|
-      valid_coordinate?(cord)
-    end
-    false
-    elsif ship.length != cordinates.size
+    if ship.length != cordinates.size
       false
     elsif num_consec?(cordinates) && first(cordinates).all?(first(cordinates)[0])
       true
     elsif alpha_consec?(cordinates) && last(cordinates).all?(last(cordinates)[0])
       true
-    elsif cordinates.uniq!.size != cordinates.size
-      false
-    # elsif alpha_consec?(cordinates) == false || num_consec?(cordinates) == false
-    #   false
     else
       false
     end
+    #binding.pry
   end
 end
+
+# elsif cordinates.uniq!.size != cordinates.size
+#   false
+# elsif alpha_consec?(cordinates) == false || num_consec?(cordinates) == false
+#   false
+#cords = split_cords(cordinates)
+# if cordinates.each do |cord|
+#   !(valid_coordinate?(cord))
+# end
