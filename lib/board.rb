@@ -1,4 +1,4 @@
-
+require 'pry'
 class Board
   attr_reader  :cells
 
@@ -88,7 +88,7 @@ class Board
   def render(display = false)
     @display = display
     if display = true
-      p "#{@cells[cell_1]}
+      board_rend = "    1 2 3 4 \n #{@cells[cell_1]}
          #{@cells[cell_2]}
          #{@cells[cell_3]}
          #{@cells[cell_4]} \n
@@ -105,5 +105,6 @@ class Board
          #{@cells[cell_14]}
          #{@cells[cell_15]}
          #{@cells[cell_16]} "
+         binding.pry
   end
 end
