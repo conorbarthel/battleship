@@ -1,25 +1,25 @@
-
+require 'pry'
 class Board
   attr_reader  :cells
 
-  def initialize
+  def initialize(cells)
     @cells = {
-     "A1" => cell_1 = Cell.new("A1"),
-     "A2" => cell_2 = Cell.new("A2"),
-     "A3" => cell_3 = Cell.new("A3"),
-     "A4" => cell_4 = Cell.new("A4"),
-     "B1" => cell_5 = Cell.new("B1"),
-     "B2" => cell_6 = Cell.new("B2"),
-     "B3" => cell_7 = Cell.new("B3"),
-     "B4" => cell_8 = Cell.new("B4"),
-     "C1" => cell_9 = Cell.new("C1"),
-     "C2" => cell_10 = Cell.new("C2"),
-     "C3" => cell_11 = Cell.new("C3"),
-     "C4" => cell_12 = Cell.new("C4"),
-     "D1" => cell_13 = Cell.new("D1"),
-     "D2" => cell_14 = Cell.new("D2"),
-     "D3" => cell_15 = Cell.new("D3"),
-     "D4" => cell_16 = Cell.new("D4")
+     "A1" = Cell.new("A1"),
+     "A2" = Cell.new("A2"),
+     "A3" = Cell.new("A3"),
+     "A4" = Cell.new("A4"),
+     "B1" = Cell.new("B1"),
+     "B2" = Cell.new("B2"),
+     "B3" = Cell.new("B3"),
+     "B4" = Cell.new("B4"),
+     "C1" = Cell.new("C1"),
+     "C2" = Cell.new("C2"),
+     "C3" = Cell.new("C3"),
+     "C4" = Cell.new("C4"),
+     "D1" = Cell.new("D1"),
+     "D2" = Cell.new("D2"),
+     "D3" = Cell.new("D3"),
+     "D4" = Cell.new("D4")
     }
   end
 
@@ -31,6 +31,14 @@ class Board
     get_keys.any?(cord)
   end
 
+  def place(ship, coords)
+    coords.each do |coord|
+      if coord == @cells[coord].coordinate
+        @cells[coord].place_ship(ship)
+      end
+    end
+  end
+
   def split_cords(cords)
   split_elements = cords.map do |cord|
     cord.split("")
@@ -39,14 +47,14 @@ class Board
   end
 
   def first(cords)
-    first = check(cords).map do |cord|
+    first = split_cords(cords).map do |cord|
       cord.first
     end
   end
 
   def last(cords)
-    last = check(cords).map do |cord|
-      cord.last
+    last = split_cords(cords).map do |cord|
+      cord.last.to_i
     end
   end
 
@@ -75,5 +83,17 @@ class Board
     elsif num_consec?(cords) && first(cords).all?(first(cords)[0])
       true
     end
+  end
+
+  def render(display = false)
+    @display = display
+    if display = true
+      board_rend = "  1 2 3 4
+      \nA #{@cells["A1"]} #{@cells["A2"]} #{@cells["A3"]} #{@cells["A4"]}
+      \nB #{@cells["B1"]} #{@cells["B2"]} #{@cells["B3"]} #{@cells["B4"]}
+      \nC #{@cells["C1"]} #{@cells["C2"]} #{@cells["C3"]} #{@cells["C4"]}
+      \nD #{@cells["D1"]} #{@cells["D2"]} #{@cells["D3"]} #{@cells["D4"]}"
+    end
+    board_rend
   end
 end
