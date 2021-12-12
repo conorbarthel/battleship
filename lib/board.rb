@@ -75,7 +75,7 @@ class Board
       if !(@cells[coord].empty?)
         return true
       end
-      #binding.pry
+
     end
     return false
   end
@@ -88,7 +88,6 @@ class Board
     end
     return true
   end
-
 
   def valid_placement?(ship, coordinates)
     return false if ship.length != coordinates.size
