@@ -1,6 +1,11 @@
+require './lib/board.rb'
+require './lib/ship.rb'
 class Game
+  board = Board.new
+  cruiser = Ship.new("Cruiser", 3)
+  submarine = Ship.new("Submarine", 2)
 
-  def welcome
+  def welcome_message
     puts "Welcome to BATTLESHIP"
     puts "Enter p to play. Enter q to quit."
   end
@@ -20,13 +25,44 @@ class Game
     if user_input == "q"
     else
       puts "Invalid input"
-    end 
+    end
   end
 
+  def choice
+    if play? == true
+    elsif quit? == true
+    end
+  end
 
+  def get_cpu_coords(ship)
+    board = Board.new
+    valid_coords = board.cells.keys
+    cpu_coords = []
+    coords = ship.length.times do
+      cpu_coords << valid_coords.delete(valid_coords.sample)
+    end
+    if board.valid_placement?(ship, cpu_coords)
+      return cpu_coords
+    else
+      return get_cpu_coords(ship)
+    end
+  end
 
+  # def get_valid_cpu_coords(ship)
+  #   board = Board.new
+  #   if board.valid_placement?(ship, get_cpu_coords) == true
+  #     return get_cpu_coords
+  #   else
+  #
+  # end
+
+  def cpu_placement
+    cruiser = Ship.new("Cruiser", 3)
+    submarine = Ship.new("Submarine", 2)
+
+  end
 end
-
+cruiser = Ship.new("Cruiser", 3)
 game = Game.new
-#
-game.play?
+p game.get_cpu_coords(cruiser)
+# game.play?
