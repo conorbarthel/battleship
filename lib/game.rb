@@ -9,9 +9,24 @@ class Game
     input = gets.chomp
   end
 
+  def play?
+    if user_input == "p"
+    else
+      puts "Invalid input"
+    end
+  end
+
+  def quit?
+    if user_input == "q"
+    else
+      puts "Invalid input"
+    end 
+  end
+
+
 
 end
 
-# game = Game.new
+game = Game.new
 #
-# game.welcome
+game.play?
