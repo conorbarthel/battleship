@@ -1,5 +1,6 @@
 require './lib/board.rb'
 require './lib/ship.rb'
+require 'pry'
 class Game
   board = Board.new
   cruiser = Ship.new("Cruiser", 3)
@@ -48,21 +49,14 @@ class Game
     end
   end
 
-  # def get_valid_cpu_coords(ship)
-  #   board = Board.new
-  #   if board.valid_placement?(ship, get_cpu_coords) == true
-  #     return get_cpu_coords
-  #   else
-  #
-  # end
-
-  def cpu_placement
-    cruiser = Ship.new("Cruiser", 3)
-    submarine = Ship.new("Submarine", 2)
-
+  def cpu_placement(ship)
+    board = Board.new
+    board.place(ship, get_cpu_coords(ship))
   end
+
 end
 cruiser = Ship.new("Cruiser", 3)
 game = Game.new
 p game.get_cpu_coords(cruiser)
 # game.play?
+p game.cpu_placement(cruiser)
