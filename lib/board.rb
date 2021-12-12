@@ -70,25 +70,36 @@ class Board
     true
   end
 
-  def valid_placement?(ship, cordinates)
-    if ship.length != cordinates.size
-      false
-    elsif num_consec?(cordinates) && first(cordinates).all?(first(cordinates)[0])
+  def overlapping_ship?(coordinates)
+    coordinates.any? do |coord|
+      if !(@cells[coord].empty?)
+        return true
+      end
+      #binding.pry
+    end
+    return false
+  end
+
+  def valid?(coordinates)
+    coordinates.any? do |coord|
+      if !(valid_coordinate?(coord))
+        return false
+      end
+    end
+    return true
+  end
+
+
+  def valid_placement?(ship, coordinates)
+    return false if ship.length != coordinates.size
+    return false if valid?(coordinates) != true
+    return false if overlapping_ship?(coordinates) == true
+    if num_consec?(coordinates) && first(coordinates).all?(first(coordinates)[0])
       true
-    elsif alpha_consec?(cordinates) && last(cordinates).all?(last(cordinates)[0])
+    elsif alpha_consec?(coordinates) && last(coordinates).all?(last(coordinates)[0])
       true
     else
       false
     end
-    #binding.pry
   end
 end
-
-# elsif cordinates.uniq!.size != cordinates.size
-#   false
-# elsif alpha_consec?(cordinates) == false || num_consec?(cordinates) == false
-#   false
-#cords = split_cords(cordinates)
-# if cordinates.each do |cord|
-#   !(valid_coordinate?(cord))
-# end
