@@ -9,15 +9,27 @@ RSpec.describe 'game' do
     @game = Game.new(@board, @ships)
   end
 
-  it 'exists' do
-    expect(@game).to be_a(Game)
+  describe "set up game" do
+    it 'exists' do
+      expect(@game).to be_a(Game)
+    end
+
+    it "has a board" do
+      expect(@board).to be_a(Board)
+    end
+
+    it "has valid_coords" do
+      expect(@game.valid_coords).to eq(@board.cells.keys)
+    end
+
+    it "prints welcome message" do
+      expect(@game.welcome_message).to eq("Welcome to BATTLESHIP \n" "Enter p to play. Enter q to quit.")
+    end
   end
 
-  it "has a board" do
-    expect(@board).to be_a(Board)
-  end
+  describe "cpu coords work" do
+    it "" do
 
-  it "has valid_coords" do
-    expect(@game.valid_coords).to eq(@board.cells.keys)
+    end
   end
 end
