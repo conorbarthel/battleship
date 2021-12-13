@@ -1,5 +1,5 @@
 require './lib/game'
-
+require 'pry'
 RSpec.describe 'game' do
   before(:each) do
     @board = Board.new
@@ -22,7 +22,7 @@ RSpec.describe 'game' do
     end
 
     it "prints welcome message" do
-      expect(@game.welcome_message).to eq("Welcome to BATTLESHIP \n" "Enter p to play. Enter q to quit.")
+      expect(@game.welcome_message).to eq(puts "Welcome to BATTLESHIP \n" "Enter p to play. Enter q to quit.")
     end
   end
 
@@ -33,5 +33,12 @@ RSpec.describe 'game' do
     it "cpu_cords are valid" do
       expect(@board.valid_placement?(@cruiser, @game.get_cpu_coords(@game.ships[0]))).to eq(true)
     end
+    xit "places ships" do
+      @game.cpu_placement(@game.ships)
+
+      expect(@game.board.cells.values.any?()).to include(@cruiser)
+    end
   end
+
+
 end
