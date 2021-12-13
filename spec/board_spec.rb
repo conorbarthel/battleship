@@ -92,9 +92,8 @@ RSpec.describe "Board" do
       it "checks for board" do
         board = Board.new
         cruiser = Ship.new("Cruiser", 3)
-        expect(board.render_b).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
+        expect(board.render_b(true)).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
         board.place(cruiser, ["A1", "A2", "A3"])
-        binding.pry
         expect(board.render_b(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
       end
     end
