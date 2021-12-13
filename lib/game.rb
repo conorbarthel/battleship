@@ -13,8 +13,8 @@ class Game
   end
 
   def welcome_message
-    puts "Welcome to BATTLESHIP"
-    puts "Enter p to play. Enter q to quit."
+    "Welcome to BATTLESHIP \n" +
+    "Enter p to play. Enter q to quit."
   end
 
   def user_input
