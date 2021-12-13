@@ -2,7 +2,11 @@ require './lib/game'
 
 RSpec.describe 'game' do
   before(:each) do
-    @game = Game.new
+    @board = Board.new
+    @cruiser = Ship.new("Cruiser", 3)
+    @submarine = Ship.new("Submarine", 2)
+    @ships = [cruiser, submarine]
+    @game = Game.new(board, ships)
   end
 
   it 'exists' do
