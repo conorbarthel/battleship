@@ -2,10 +2,8 @@ require './lib/board.rb'
 require './lib/ship.rb'
 require 'pry'
 class Game
-  #board = Board.new
-  #cruiser = Ship.new("Cruiser", 3)
-  #submarine = Ship.new("Submarine", 2)
   attr_reader :board, :ships, :valid_coords
+
   def initialize(board, ships)
     @board = board
     @ships = ships
@@ -63,10 +61,13 @@ class Game
     shot = @valid_coords.delete(@valid_coords.sample)
     board.cells[shot].fire_upon
     board.render_b
-  end
-
-  def cpu_results
-
+    if board.cells[shot].empty?
+      puts "I missed"
+    elsif board.cells[shot].empty? == false
+      puts "Hit!"
+    elsif board.cells[shot].empty? == false && board.cells[shot].ship.sunk?
+      puts "I sunk your BATTLESHIP"
+    end
   end
 end
 cruiser = Ship.new("Cruiser", 3)
@@ -79,15 +80,15 @@ game = Game.new(board, [cruiser, submarine])
 #fginp game.cpu_placement(game.ships)
 #p game.computer_shot
 #game.computer_shot
-p game.computer_shot
-p game.computer_shot
-p game.computer_shot
-p game.computer_shot
-p game.computer_shot
-p game.computer_shot
-p game.computer_shot
-p game.computer_shot
-p game.computer_shot
-p game.computer_shot
-p game.computer_shot
-p game.computer_shot
+#game.computer_shot
+# p game.computer_shot
+# p game.computer_shot
+# p game.computer_shot
+# p game.computer_shot
+# p game.computer_shot
+# p game.computer_shot
+# p game.computer_shot
+# p game.computer_shot
+# p game.computer_shot
+# p game.computer_shot
+# p game.computer_shot

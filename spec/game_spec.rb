@@ -5,7 +5,7 @@ RSpec.describe 'game' do
     @game = Game.new
   end
 
-  it 'exists' do
+  xit 'exists' do
     expect(@game).to be_a(Game)
   end
 

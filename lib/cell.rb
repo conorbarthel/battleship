@@ -40,7 +40,7 @@ class Cell
       elsif fired_upon? && @ship.sunk?
         var = "X"
       end
-    p var
+     var
   end
 end
 #Dont forget to commit
