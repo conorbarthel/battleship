@@ -2,7 +2,7 @@ require './lib/board.rb'
 require './lib/ship.rb'
 require 'pry'
 class Game
-  attr_reader :board, :ships, :valid_coords
+  attr_reader :board, :ships, :valid_coords, :input
 #We are going to need a player_board and a cpu_board
 #Will have to update our methods to take arguments to
 #perform action on correct board
@@ -15,33 +15,35 @@ class Game
   def welcome_message
     puts "Welcome to BATTLESHIP"
     puts "Enter p to play. Enter q to quit."
+    play
   end
 
-  def user_input
+  def play
     input = gets.chomp
-  end
-
-  def play?
-    if user_input == "p"
-    else
-      puts "Invalid input"
-    end
-  end
-
-  def quit?
-    if user_input == "q"
-    else
-      puts "Invalid input"
-    end
-  end
-#bottom of loop if quit is true loop ends
-  def choice
-    if play? == true
-      #will execute the turns until one player sinks other's ships
-    elsif quit? == true
+    if input == "p"
+      p "turn"
+    elsif input == "q"
       welcome_message
+    else
+      puts "Invalid input"
     end
+    welcome_message
   end
+
+#   def quit?
+#     if user_input == "q"
+#     else
+#       puts "Invalid input"
+#     end
+#   end
+# #bottom of loop if quit is true loop ends
+#   def choice
+#     if play? == true
+#       #will execute the turns until one player sinks other's ships
+#     elsif quit? == true
+#       welcome_message
+#     end
+#   end
 
   def display_board
     #renders boards
@@ -103,6 +105,7 @@ cruiser = Ship.new("Cruiser", 3)
 submarine = Ship.new("Submarine", 2)
 board = Board.new
 game = Game.new(board, [cruiser, submarine])
+game.play
 #p game.valid_coords
 #p game.get_cpu_coords(game.ships[0])
 # game.play?
