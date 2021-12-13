@@ -28,7 +28,10 @@ RSpec.describe 'game' do
   end
 
   describe "cpu coords work" do
-    it "cpu_cords exists" do
+    it "cpu cords exists" do
+      expect(@game.get_cpu_coords(@game.ships[0])).to be_a(Array)
+    end
+    it "cpu_cords are valid" do
       expect(@board.valid_placement?(@cruiser, @game.get_cpu_coords(@game.ships[0]))).to eq(true)
     end
   end
