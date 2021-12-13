@@ -16,4 +16,8 @@ RSpec.describe 'game' do
   it "has a board" do
     expect(@board).to be_a(Board)
   end
+
+  it "has valid_coords" do
+    expect(@game.valid_coords).to eq(@board.cells.keys)
+  end
 end
