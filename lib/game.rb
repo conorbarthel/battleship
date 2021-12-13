@@ -60,7 +60,13 @@ class Game
   end
 
   def computer_shot
-    @valid_coords.delete(@valid_coords.sample)
+    shot = @valid_coords.delete(@valid_coords.sample)
+    board.cells[shot].fire_upon
+    board.render_b
+  end
+
+  def cpu_results
+
   end
 end
 cruiser = Ship.new("Cruiser", 3)
@@ -70,6 +76,18 @@ game = Game.new(board, [cruiser, submarine])
 #p game.valid_coords
 #p game.get_cpu_coords(game.ships[0])
 # game.play?
-#$p game.cpu_placement(game.ships)
+#fginp game.cpu_placement(game.ships)
+#p game.computer_shot
+#game.computer_shot
 p game.computer_shot
-p game.valid_coords
+p game.computer_shot
+p game.computer_shot
+p game.computer_shot
+p game.computer_shot
+p game.computer_shot
+p game.computer_shot
+p game.computer_shot
+p game.computer_shot
+p game.computer_shot
+p game.computer_shot
+p game.computer_shot
