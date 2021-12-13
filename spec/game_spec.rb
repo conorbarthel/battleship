@@ -28,8 +28,8 @@ RSpec.describe 'game' do
   end
 
   describe "cpu coords work" do
-    it "" do
-
+    it "cpu_cords exists" do
+      expect(@board.valid_placement?(@cruiser, @game.get_cpu_coords(@game.ships[0]))).to eq(true)
     end
   end
 end
