@@ -31,15 +31,15 @@ class Cell
   def render(display = false)
     var = "."
     @display = display
-    if display == true
-      var = "S"
-    elsif fired_upon? && empty?
-      var = "M"
-    elsif fired_upon? && empty? == false && @ship.sunk? == false
-      var = "H"
-    elsif fired_upon? && @ship.sunk?
-      var = "X"
-    end
+      if display == true && empty? == false
+        var = "S"
+      elsif fired_upon? && empty?
+        var = "M"
+      elsif fired_upon? && empty? == false && @ship.sunk? == false
+        var = "H"
+      elsif fired_upon? && @ship.sunk?
+        var = "X"
+      end
     p var
   end
 end
