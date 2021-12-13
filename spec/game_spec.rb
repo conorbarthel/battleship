@@ -27,7 +27,7 @@ RSpec.describe 'game' do
     end
   end
 
-  describe "cpu coords work" do
+  describe "cpu coords work," do
     it "cpu cords exists" do
       expect(@game.get_cpu_coords(@game.ships[0])).to be_a(Array)
     end
