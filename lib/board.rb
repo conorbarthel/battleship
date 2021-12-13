@@ -75,7 +75,6 @@ class Board
       if !(@cells[coord].empty?)
         return true
       end
-
     end
     return false
   end
@@ -101,7 +100,7 @@ class Board
       false
     end
   end
-
+#renders board
   def render_b(show = false)
     @show = show
     puts "  1 2 3 4 \n" +

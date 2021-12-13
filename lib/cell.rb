@@ -27,7 +27,7 @@ class Cell
       @ship.hit
     end
   end
-
+#renders individual cells
   def render(display = false)
     var = "."
     @display = display
@@ -40,7 +40,7 @@ class Cell
       elsif fired_upon? && @ship.sunk?
         var = "X"
       end
-     var
+    var
   end
 end
 #Dont forget to commit
