@@ -8,7 +8,6 @@ RSpec.describe 'game' do
     @ships = [@cruiser, @submarine]
     @game = Game.new(@board, @ships)
   end
-
   describe "set up game" do
     it 'exists' do
       expect(@game).to be_a(Game)
