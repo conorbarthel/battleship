@@ -43,20 +43,25 @@ class Board
     split_elements
   end
 
+
   def get_letters(cords)
     get_letters = split_cords(cords).map do |cord|
       cord.first
     end
   end
 
+
   def get_numbers(cords)
     get_numbers = split_cords(cords).map do |cord|
+  def last(cords)
+    last = split_cords(cords).map do |cord|
       cord.last.to_i
     end
   end
 
   def num_consec?(cords)
     get_numbers(cords).each_cons(2) do |pair|
+    last(cords).each_cons(2) do |pair|
      return false if pair[0].next != pair[1]
     end
     true
@@ -64,6 +69,7 @@ class Board
 
   def alpha_consec?(cords)
     get_letters(cords).each_cons(2) do |pair|
+    first(cords).each_cons(2) do |pair|
      return false if pair[0].next != pair[1]
     end
     true
