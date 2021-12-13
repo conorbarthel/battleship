@@ -88,6 +88,7 @@ class Board
     return true
   end
 
+
   def valid_placement?(ship, coordinates)
     return false if ship.length != coordinates.size
     return false if valid?(coordinates) != true

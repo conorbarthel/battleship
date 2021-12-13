@@ -13,7 +13,7 @@ class Game
   end
 #welcome_message will print at top of loop
   def welcome_message
-    puts "Welcome to BATTLESHIP"
+    puts "Welcome to BATTLESHIP" +
     puts "Enter p to play. Enter q to quit."
     play
   end
