@@ -4,6 +4,7 @@ require './lib/ship.rb'
 require 'pry'
 
 RSpec.describe "Board" do
+
   describe "is a valid board" do
     it "exists" do
       board = Board.new
