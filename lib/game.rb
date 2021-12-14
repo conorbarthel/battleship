@@ -13,6 +13,7 @@ class Game
     @ship_2 = ship_2
     @valid_coords = @cpu_board.cells.keys
   end
+
 #welcome_message will print at top of loop
   def welcome_message
     puts "Welcome to BATTLESHIP" +
@@ -37,10 +38,14 @@ class Game
     end
     #welcome_message
   end
-
-  def display_boards
-    #renders cpu_boards
+    
+  def display_board(board1, board2)
+    puts "===COMPUTER BOARD==="
+    puts board1.render_b
+    puts "===PLAYER BOARD==="
+    puts board2.render_b(true)
   end
+    
 # gets valid coords for CPU
   def get_cpu_coords(ship)
     cpu_coords = []
@@ -62,9 +67,30 @@ class Game
 #when propted to add a ship it should tell the player
 #how long the ship is
 #argument for render will be true so player can see their ship_1
-  def player_placement(ship_1)
 
+def place_instructions
+  puts "The computer has placed their ships"
+  puts "Now it is your turn to lay out your ships"
+  puts "The cruiser is 3 units long and the submarine is 2 units"
+  @board.render_b
+end
+
+  def place_ship(ship)
+    # Asks player to put in ships coords
+    puts "The #{ship.name} is #{ship.length} spaces. Enter #{ship.length} coords \n" +
+    "ex: #{get_cpu_coords(ship)}"
+    player_place = gets.chomp
+    player_coord = player_place.split(" ")
+
+    if @board.valid_placement?(ship, player_coord)
+      @board.place(ship, player_coord)
+      return board.render_b(true)
+    else
+      puts "Those are invalid coordinates. Try again: \n"
+      place_ship(ship)
+    end
   end
+
 #computer shot and results
   def computer_shot
     shot = @valid_coords.delete(@valid_coords.sample)
@@ -81,12 +107,15 @@ class Game
 #gets player's input and checks if valid. Valid coords will need to
 #remove the player choice after it has been made so that they
 #cannot repeat coords. This should also print player results
+
   def player_shot
-
+    puts "Enter a coordinate to shoot at: \n"
+    shot = gets.chomp
+    return puts "Invalid coordinates. Please try again: \n" if @valid_coords.any?(shot) == false
   end
+#display_board, player_shot, computer shot
+#executes all functions of turn, will loop until all ships are sunk for a player
 
-#display_cpu_board, player_shot, computer shot
-#executes all functions of turn, will loop until all ship_1 are sunk for a player
 #displays a message about who won
   def turn
     display_boards
@@ -94,6 +123,10 @@ class Game
     computer_shot
     # if
     # end
+  end
+
+  def results
+
   end
 end
 cruiser = Ship.new("Cruiser", 3)
@@ -110,6 +143,9 @@ p cpu_board.render_b
 #p game.computer_shot
 #game.computer_shot
 #game.computer_shot
+# p game.place_ship(cruiser)
+p game.display_board(board1, board2)
+# p game.place_ship(submarine)
 # p game.computer_shot
 # p game.computer_shot
 # p game.computer_shot
