@@ -2,7 +2,7 @@ require './lib/board.rb'
 require './lib/ship.rb'
 require 'pry'
 class Game
-  attr_reader :cpu_board, :player_board, :ship_1, :ship_2, :valid_coords
+  attr_reader :cpu_board, :player_board, :ship_1, :ship_2, :cpu_valid_coords
 #We are going to need a player_board and a cpu_board
 #Will have to update our methods to take arguments to
 #perform action on correct board
@@ -11,7 +11,8 @@ class Game
     @player_board = player_board
     @ship_1 = ship_1
     @ship_2 = ship_2
-    @valid_coords = @cpu_board.cells.keys
+    @cpu_valid_coords = @cpu_board.cells.keys
+    @player_valid_coords = @player_board.cells.keys
   end
 
 #welcome_message will print at top of loop
@@ -50,7 +51,7 @@ class Game
   def get_cpu_coords(ship)
     cpu_coords = []
     coords = ship.length.times do
-      cpu_coords << @valid_coords.sample
+      cpu_coords << @cpu_valid_coords.sample
     end
     if cpu_board.valid_placement?(ship, cpu_coords)
       return cpu_coords
@@ -93,7 +94,7 @@ end
 
 #computer shot and results
   def computer_shot
-    shot = @valid_coords.delete(@valid_coords.sample)
+    shot = @cpu_valid_coords.delete(@cpu_valid_coords.sample)
     cpu_board.cells[shot].fire_upon
     cpu_board.render_b #might want to take this linie out should the cpu be rendering?
     if cpu_board.cells[shot].empty?
@@ -109,9 +110,17 @@ end
 #cannot repeat coords. This should also print player results
 
   def player_shot
+    valid_choices = @player_valid_coords
     puts "Enter a coordinate to shoot at: \n"
     shot = gets.chomp
-    return puts "Invalid coordinates. Please try again: \n" if @valid_coords.any?(shot) == false
+    return puts "Invalid coordinates. Please try again: \n" if @player_valid_coords.any?(shot) == false
+    if player_board.cells[shot].empty?
+      puts "Your shot #{shot} is a miss"
+    elsif player_board.cells[shot].empty? == false
+      puts "Your shot #{shot} is a Hit!"
+    elsif player_board.cells[shot].empty? == false && player_board.cells[shot].ship.sunk?
+      puts "Your shot #{shot} is a Hit! You sunk my BATTLESHIP!"
+    end
   end
 #display_board, player_shot, computer shot
 #executes all functions of turn, will loop until all ships are sunk for a player
@@ -134,27 +143,5 @@ submarine = Ship.new("Submarine", 2)
 cpu_board = Board.new
 player_board = Board.new
 game = Game.new(cpu_board, player_board, cruiser, submarine)
-p cpu_board.render_b
-#game.play
-#p game.valid_coords
-#p game.get_cpu_coords(game.ship_1[0])
-# game.play?
-#fginp game.cpu_placement(game.ship_1)
-#p game.computer_shot
-#game.computer_shot
-#game.computer_shot
-# p game.place_ship(cruiser)
-#p game.display_board(board1, board2)
-# p game.place_ship(submarine)
-# p game.computer_shot
-# p game.computer_shot
-# p game.computer_shot
-# p game.computer_shot
-# p game.computer_shot
-# p game.computer_shot
-# p game.computer_shot
-# p game.computer_shot
-# p game.computer_shot
-# p game.computer_shot
-# p game.computer_shot
-#p game.valid_coords
+#game.player_shot
+game.player_board.render_b
