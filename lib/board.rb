@@ -28,7 +28,6 @@ class Board
     @cells.keys.any?(cord)
   end
 
-
   def place(ship, coords)
     coords.each do |coord|
       if coord == @cells[coord].coordinate
@@ -44,27 +43,27 @@ class Board
     split_elements
   end
 
-  def first(cords)
-    first = split_cords(cords).map do |cord|
+  def get_letters(cords)
+    get_letters = split_cords(cords).map do |cord|
       cord.first
     end
   end
 
-  def last(cords)
-    last = split_cords(cords).map do |cord|
+  def get_numbers(cords)
+    get_numbers = split_cords(cords).map do |cord|
       cord.last.to_i
     end
   end
 
   def num_consec?(cords)
-    last(cords).each_cons(2) do |pair|
+    get_numbers(cords).each_cons(2) do |pair|
      return false if pair[0].next != pair[1]
     end
     true
   end
 
   def alpha_consec?(cords)
-    first(cords).each_cons(2) do |pair|
+    get_letters(cords).each_cons(2) do |pair|
      return false if pair[0].next != pair[1]
     end
     true
@@ -89,14 +88,13 @@ class Board
     return true
   end
 
-
   def valid_placement?(ship, coordinates)
     return false if ship.length != coordinates.size
     return false if valid?(coordinates) != true
     return false if overlapping_ship?(coordinates) == true
-    if num_consec?(coordinates) && first(coordinates).all?(first(coordinates)[0])
+    if num_consec?(coordinates) && get_letters(coordinates).all?(get_letters(coordinates)[0])
       true
-    elsif alpha_consec?(coordinates) && last(coordinates).all?(last(coordinates)[0])
+    elsif alpha_consec?(coordinates) && get_numbers(coordinates).all?(get_numbers(coordinates)[0])
       true
     else
       false
