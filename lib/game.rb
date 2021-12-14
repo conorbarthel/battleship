@@ -2,20 +2,26 @@ require './lib/board.rb'
 require './lib/ship.rb'
 require 'pry'
 class Game
-  attr_reader :board, :ships, :valid_coords, :input
+  attr_reader :cpu_board, :player_board, :ship_1, :ship_2, :valid_coords
 #We are going to need a player_board and a cpu_board
 #Will have to update our methods to take arguments to
 #perform action on correct board
-  def initialize(board, ships)
-    @board = board
-    @ships = ships
-    @valid_coords = @board.cells.keys
+  def initialize(cpu_board, player_board, ship_1, ship_2)
+    @cpu_board = cpu_board
+    @player_board = player_board
+    @ship_1 = ship_1
+    @ship_2 = ship_2
+    @valid_coords = @cpu_board.cells.keys
   end
 #welcome_message will print at top of loop
   def welcome_message
     puts "Welcome to BATTLESHIP" +
-    puts "Enter p to play. Enter q to quit."
+   "Enter p to play. Enter q to quit."
     play
+  end
+
+  def get_ship_name(board)
+    board.cells.values.ship
   end
 
   def play
@@ -24,29 +30,16 @@ class Game
       p "turn"
     elsif input == "q"
       welcome_message
+    elsif input == "stop"
+      puts "break"
     else
       puts "Invalid input"
     end
-    welcome_message
+    #welcome_message
   end
 
-#   def quit?
-#     if user_input == "q"
-#     else
-#       puts "Invalid input"
-#     end
-#   end
-# #bottom of loop if quit is true loop ends
-#   def choice
-#     if play? == true
-#       #will execute the turns until one player sinks other's ships
-#     elsif quit? == true
-#       welcome_message
-#     end
-#   end
-
-  def display_board
-    #renders boards
+  def display_boards
+    #renders cpu_boards
   end
 # gets valid coords for CPU
   def get_cpu_coords(ship)
@@ -54,36 +47,34 @@ class Game
     coords = ship.length.times do
       cpu_coords << @valid_coords.sample
     end
-    if board.valid_placement?(ship, cpu_coords)
+    if cpu_board.valid_placement?(ship, cpu_coords)
       return cpu_coords
     else
       return get_cpu_coords(ship)
     end
   end
-#cpu places ships
+#cpu places ship_1
   def cpu_placement(ship)
-    ship.each do
-      board.place(ship, get_cpu_coords(ship))
-    end
+      cpu_board.place(ship, get_cpu_coords(ship))
   end
 #player places ship. Include explaination of how to play
-#also should render empty board for player to reference.
+#also should render empty cpu_board for player to reference.
 #when propted to add a ship it should tell the player
 #how long the ship is
-#argument for render will be true so player can see their ships
-  def player_placement(ships)
+#argument for render will be true so player can see their ship_1
+  def player_placement(ship_1)
 
   end
 #computer shot and results
   def computer_shot
     shot = @valid_coords.delete(@valid_coords.sample)
-    board.cells[shot].fire_upon
-    board.render_b
-    if board.cells[shot].empty?
+    cpu_board.cells[shot].fire_upon
+    cpu_board.render_b #might want to take this linie out should the cpu be rendering?
+    if cpu_board.cells[shot].empty?
       puts "My shot #{shot} is a miss"
-    elsif board.cells[shot].empty? == false
+    elsif cpu_board.cells[shot].empty? == false
       puts "My shot #{shot} is a Hit!"
-    elsif board.cells[shot].empty? == false && board.cells[shot].ship.sunk?
+    elsif cpu_board.cells[shot].empty? == false && cpu_board.cells[shot].ship.sunk?
       puts "My shot #{shot} is a Hit! I sunk your BATTLESHIP!"
     end
   end
@@ -94,22 +85,28 @@ class Game
 
   end
 
-#display_board, player_shot, computer shot
-#executes all functions of turn, will loop until all ships are sunk for a player
+#display_cpu_board, player_shot, computer shot
+#executes all functions of turn, will loop until all ship_1 are sunk for a player
 #displays a message about who won
   def turn
-
+    display_boards
+    player_shot
+    computer_shot
+    # if
+    # end
   end
 end
 cruiser = Ship.new("Cruiser", 3)
 submarine = Ship.new("Submarine", 2)
-board = Board.new
-game = Game.new(board, [cruiser, submarine])
-game.play
+cpu_board = Board.new
+player_board = Board.new
+game = Game.new(cpu_board, player_board, cruiser, submarine)
+p cpu_board.render_b
+#game.play
 #p game.valid_coords
-#p game.get_cpu_coords(game.ships[0])
+#p game.get_cpu_coords(game.ship_1[0])
 # game.play?
-#fginp game.cpu_placement(game.ships)
+#fginp game.cpu_placement(game.ship_1)
 #p game.computer_shot
 #game.computer_shot
 #game.computer_shot
@@ -124,3 +121,4 @@ game.play
 # p game.computer_shot
 # p game.computer_shot
 # p game.computer_shot
+#p game.valid_coords
