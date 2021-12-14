@@ -1,9 +1,9 @@
 require './lib/cell.rb'
 require './lib/ship.rb'
 class Board
-  attr_reader  :cells
+  attr_reader  :cells, :ship_1, :ship_2
 
-  def initialize
+  def initialize(ship_1, ship_2)
     @cells = {
      "A1" => Cell.new("A1"),
      "A2" => Cell.new("A2"),
@@ -22,6 +22,8 @@ class Board
      "D3" => Cell.new("D3"),
      "D4" => Cell.new("D4")
     }
+    @ship_1 = ship_1
+    @ship_2 = ship_2
   end
 
   def valid_coordinate?(cord)

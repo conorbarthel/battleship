@@ -2,15 +2,13 @@ require './lib/board.rb'
 require './lib/ship.rb'
 require 'pry'
 class Game
-  attr_reader :cpu_board, :player_board, :ship_1, :ship_2, :cpu_valid_coords
+  attr_reader :cpu_board, :player_board, :cpu_valid_coords, :player_valid_coords
 #We are going to need a player_board and a cpu_board
 #Will have to update our methods to take arguments to
 #perform action on correct board
-  def initialize(cpu_board, player_board, ship_1, ship_2)
+  def initialize(cpu_board, player_board)
     @cpu_board = cpu_board
     @player_board = player_board
-    @ship_1 = ship_1
-    @ship_2 = ship_2
     @cpu_valid_coords = @cpu_board.cells.keys
     @player_valid_coords = @player_board.cells.keys
   end
@@ -36,15 +34,23 @@ class Game
     welcome_message
   end
 
-  def turn
+  def set_up
     display_boards(player_board, cpu_board)
-    player_placement(ship)
-    player_placement(ship)
-    cpu_placement(ships)
-    cpu_placement(ships)
-    if ship.sunk? == true
-      player_shot
-      computer_shot
+    cpu_placement(cpu_board.ship_1)
+    cpu_placement(cpu_board.ship_2)
+    place_instructions
+    player_placement(player_board.ship_1)
+    player_placement(player_board.ship_2)
+  end
+
+
+  def turn(player_board, cpu_board)
+    if player_board.ship_1.sunk? && player_board.ship_2.sunk?
+      puts "I won!"
+      welcome_message
+    elsif cpu_board.ship_1.sunk? && cpu_board.ship_2.sunk?
+      puts "You won!"
+      welcome_message
     end
   end
 
@@ -109,7 +115,7 @@ class Game
   def player_placement(ship)
     # Asks player to put in ships coords
     puts "The #{ship.name} is #{ship.length} spaces. Enter #{ship.length} coords \n" +
-    "ex: #{get_cpu_coords(ship)}"
+    "ex: #{get_cpu_coords(ship).join(" ")}"
     player_place = gets.chomp
     player_coord = player_place.split(" ")
 
@@ -134,8 +140,8 @@ end
 
 cruiser = Ship.new("Cruiser", 3)
 submarine = Ship.new("Submarine", 2)
-cpu_board = Board.new
-player_board = Board.new
-game = Game.new(cpu_board, player_board, cruiser, submarine)
+cpu_board = Board.new(cruiser, submarine)
+player_board = Board.new(cruiser, submarine)
+game = Game.new(cpu_board, player_board)
 
-game.display_board(player_board, cpu_board)
+p game.player_placement(cruiser)
