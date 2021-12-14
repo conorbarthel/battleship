@@ -38,14 +38,14 @@ class Game
     end
     #welcome_message
   end
-    
+
   def display_board(board1, board2)
     puts "===COMPUTER BOARD==="
     puts board1.render_b
     puts "===PLAYER BOARD==="
     puts board2.render_b(true)
   end
-    
+
 # gets valid coords for CPU
   def get_cpu_coords(ship)
     cpu_coords = []
@@ -144,7 +144,7 @@ p cpu_board.render_b
 #game.computer_shot
 #game.computer_shot
 # p game.place_ship(cruiser)
-p game.display_board(board1, board2)
+#p game.display_board(board1, board2)
 # p game.place_ship(submarine)
 # p game.computer_shot
 # p game.computer_shot
