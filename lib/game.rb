@@ -106,7 +106,7 @@ class Game
     end
 
     puts "COMPUTER BOARD \n "
-    cpu_board.render_b(true)
+    cpu_board.render_b
   end
 
 # gets valid coords for CPU
