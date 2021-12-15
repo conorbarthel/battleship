@@ -24,7 +24,17 @@ class Game
   def welcome_message
     puts "Welcome to BATTLESHIP! " +
     "Enter p to play. Enter q to quit."
-    play
+    input = gets.chomp
+    if input == "p"
+      set_up(player_board, cpu_board)
+    elsif input == "q"
+      welcome_message
+    elsif input == "stop"
+      puts "Scram"
+    else
+      puts "Invalid input"
+    end
+    #welcome_message
   end
 
   def play
@@ -56,7 +66,11 @@ class Game
       player_shot
       cpu_shot
     end
-    puts "Game over"
+    if player_board.ship_1.sunk? && player_board.ship_2.sunk?
+      puts "You loose Game over"
+    elsif cpu_board.ship_1.sunk? && cpu_board.ship_2.sunk?
+      puts "You Win!"
+    end
     #new_game
   end
 
