@@ -77,8 +77,8 @@ class Game
     elsif cpu_board.cells[shot].empty? == false && cpu_board.cells[shot].ship.sunk?
       puts "Your shot #{shot} is a Hit! You sunk my BATTLESHIP! \n"
     end
-  
-    puts "COMPUTER BOARD"
+
+    puts "COMPUTER BOARD \n "
     cpu_board.render_b(true)
   end
 
@@ -112,7 +112,7 @@ class Game
       puts "My shot #{shot} is a Hit! I sunk your BATTLESHIP! \n" +
       ""
     end
-    puts "PLAYER BOARD"
+    puts "PLAYER BOARD \n"
     player_board.render_b(true)
   end
 
