@@ -7,8 +7,12 @@ class Game
 #Will have to update our methods to take arguments to
 #perform action on correct board
   def initialize(cpu_board, player_board)
-    @cpu_board = cpu_board
-    @player_board = player_board
+    player_cruiser = Ship.new("Cruiser", 3)
+    cpu_cruiser = Ship.new("Cruiser", 3)
+    player_submarine = Ship.new("Submarine", 2)
+    cpu_submarine = Ship.new("Submarine", 2)
+    @cpu_board = Board.new(cpu_cruiser, cpu_submarine)
+    @player_board = Board.new(player_cruiser, player_submarine)
     @cpu_valid_coords = @cpu_board.cells.keys
     @player_valid_coords = @player_board.cells.keys
   end
@@ -18,6 +22,20 @@ class Game
     "Enter p to play. Enter q to quit."
     play
   end
+
+  # def get_classes
+  #   player_cruiser = Ship.new("Cruiser", 3)
+  #   cpu_cruiser = Ship.new("Cruiser", 3)
+  #   player_submarine = Ship.new("Submarine", 2)
+  #   cpu_submarine = Ship.new("Submarine", 2)
+  #   cpu_board = Board.new(cpu_cruiser, cpu_submarine)
+  #   player_board = Board.new(player_cruiser, player_submarine)
+  #   game = Game.new(cpu_board, player_board)
+  #   binding.pry
+  #   # game.start
+  #
+  #   game.welcome_message
+  # end
 
   def play
     input = gets.chomp
@@ -45,14 +63,23 @@ class Game
 
 
   def turn(player_board, cpu_board)
-    player_shot
-    cpu_shot
-    if player_board.ship_1.sunk? && player_board.ship_2.sunk? || cpu_board.ship_1.sunk? && cpu_board.ship_2.sunk?
-      puts "Game over"
-      welcome_message
+    until player_board.ship_1.sunk? && player_board.ship_2.sunk? || cpu_board.ship_1.sunk? && cpu_board.ship_2.sunk? do
+      player_shot
+      cpu_shot
     end
-    turn(player_board, cpu_board)
+    puts "Game over"
+    welcome_message
   end
+
+  # def turn(player_board, cpu_board)
+  #   player_shot
+  #   cpu_shot
+  #   if player_board.ship_1.sunk? && player_board.ship_2.sunk? || cpu_board.ship_1.sunk? && cpu_board.ship_2.sunk?
+  #     puts "Game over"
+  #     welcome_message
+  #   end
+  #   turn(player_board, cpu_board)
+  # end
 
   def display_board(p_board, c_board)
     puts "===COMPUTER BOARD==="
@@ -96,7 +123,7 @@ class Game
   end
 #cpu places ship_1
   def cpu_placement(ship)
-      cpu_board.place(ship, get_cpu_coords(ship))
+    cpu_board.place(ship, get_cpu_coords(ship))
   end
 
   def cpu_shot

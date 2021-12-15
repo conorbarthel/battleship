@@ -1,17 +1,19 @@
+require 'pry'
 require './lib/board.rb'
 require './lib/ship.rb'
 require './lib/game'
 require './lib/cell.rb'
 
 def start
-  player_cruiser = Ship.new("Cruiser", 3)
-  cpu_cruiser = Ship.new("Cruiser", 3)
-  player_submarine = Ship.new("Submarine", 2)
-  cpu_submarine = Ship.new("Submarine", 2)
-  cpu_board = Board.new(cpu_cruiser, cpu_submarine)
-  player_board = Board.new(player_cruiser, player_submarine)
+  p_cruiser = Ship.new("Cruiser", 3)
+  c_cruiser = Ship.new("CCruiser", 3)
+  p_submarine = Ship.new("Submarine", 2)
+  c_submarine = Ship.new("SSubmarine", 2)
+  comp_board = Board.new(cpu_cruiser, cpu_submarine)
+  p_board = Board.new(player_cruiser, player_submarine)
   game = Game.new(cpu_board, player_board)
-  # game.start
+  # binding.pry
+  # # game.start
 
   game.welcome_message
   # game.set_up(player_board, cpu_board)

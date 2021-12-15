@@ -30,20 +30,19 @@ class Cell
 #renders individual cells
   def render(display = false)
     @display = display
-      if display == true && empty? == false && fired_upon? == false && @ship.sunk? == false
-        var = "S"
+      if display == true && empty? == false && fired_upon? == false && ship.sunk? == false
+        "S"
       elsif fired_upon? && empty?
-        var = "M"
-      elsif fired_upon? && empty? == false && @ship.sunk? == false
-        var = "H"
-      elsif fired_upon? && @ship.sunk?
-        var = "X"
+        "M"
+      elsif fired_upon? && empty? == false && ship.sunk? == false
+        "H"
       # elsif fired_upon? == false
       #   var = "."
+      elsif fired_upon? && ship.sunk?
+        "X"
       else
-        var = "."
+        "."
     end
-  var
   end
 end
 
