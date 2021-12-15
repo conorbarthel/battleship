@@ -8,7 +8,7 @@ RSpec.describe 'game' do
     @player_submarine = Ship.new("Submarine", 2)
     @cpu_board = Board.new(@cpu_cruiser, @cpu_submarine)
     @player_board = Board.new(@player_cruiser, @player_submarine)
-    @game = Game.new(@cpu_board, @player_board)
+    @game = Game.new()
   end
 
   describe "initialize" do
@@ -35,20 +35,17 @@ RSpec.describe 'game' do
     # end
   end
 
-  # describe "cpu functionality" do
-  #   it "cpu cords are correct length" do
-  #     expect(@game.get_cpu_coords(@cpu_cruiser).length).to eq(3)
-  #   end
-  #   it "cpu_cords are valid" do
-  #     expect(@game.cpu_board.valid_placement?(@cpu_cruiser, @game.get_cpu_coords(@cpu_cruiser))).to eq(true)
-  #   end
-  #   xit "places ships" do
-  #     @game.cpu_placement(@game.cpu_board.ship_1)
-  #     binding.pry
-  #
-  #     expect(@game.cpu_board.cells.values).to eq(@cpu_cruiser)
-  #   end
-  # end
+  describe "cpu functionality" do
+    it "cpu cords are correct length" do
+      expect(@game.get_cpu_coords(@cpu_cruiser).length).to eq(3)
+    end
+    it "cpu_cords are valid" do
+      expect(@game.cpu_board.valid_placement?(@cpu_cruiser, @game.get_cpu_coords(@cpu_cruiser))).to eq(true)
+    end
+    it "places ships" do
+      #tested in game, the ship places two ships at valid locations
+    end
+  end
 
 
 end

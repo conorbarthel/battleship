@@ -3,39 +3,38 @@ require './lib/ship.rb'
 require 'pry'
 class Game
   attr_reader :cpu_board, :player_board, :cpu_valid_coords, :player_valid_coords
-#We are going to need a player_board and a cpu_board
-#Will have to update our methods to take arguments to
-#perform action on correct board
-  def initialize(cpu_board, player_board)
-    player_cruiser = Ship.new("Cruiser", 3)
-    cpu_cruiser = Ship.new("Cruiser", 3)
-    player_submarine = Ship.new("Submarine", 2)
-    cpu_submarine = Ship.new("Submarine", 2)
-    @cpu_board = Board.new(cpu_cruiser, cpu_submarine)
-    @player_board = Board.new(player_cruiser, player_submarine)
+
+  def initialize()
+    p_cruiser = Ship.new("Cruiser", 3)
+    c_cruiser = Ship.new("CCruiser", 3)
+    p_submarine = Ship.new("Submarine", 2)
+    c_submarine = Ship.new("SSubmarine", 2)
+    @cpu_board = Board.new(c_cruiser, c_submarine)
+    @player_board = Board.new(p_cruiser, p_submarine)
     @cpu_valid_coords = @cpu_board.cells.keys
     @player_valid_coords = @player_board.cells.keys
+  end
+
+  def new_game
+    initialize
+    welcome_message
   end
 
   def welcome_message
     puts "Welcome to BATTLESHIP! " +
     "Enter p to play. Enter q to quit."
-    play
+    input = gets.chomp
+    if input == "p"
+      set_up(player_board, cpu_board)
+    elsif input == "q"
+      welcome_message
+    elsif input == "stop"
+      puts "Scram"
+    else
+      puts "Invalid input"
+      welcome_message
+    end
   end
-
-  # def get_classes
-  #   player_cruiser = Ship.new("Cruiser", 3)
-  #   cpu_cruiser = Ship.new("Cruiser", 3)
-  #   player_submarine = Ship.new("Submarine", 2)
-  #   cpu_submarine = Ship.new("Submarine", 2)
-  #   cpu_board = Board.new(cpu_cruiser, cpu_submarine)
-  #   player_board = Board.new(player_cruiser, player_submarine)
-  #   game = Game.new(cpu_board, player_board)
-  #   binding.pry
-  #   # game.start
-  #
-  #   game.welcome_message
-  # end
 
   def play
     input = gets.chomp
@@ -61,25 +60,18 @@ class Game
     turn(player_board, cpu_board)
   end
 
-
   def turn(player_board, cpu_board)
     until player_board.ship_1.sunk? && player_board.ship_2.sunk? || cpu_board.ship_1.sunk? && cpu_board.ship_2.sunk? do
       player_shot
       cpu_shot
     end
-    puts "Game over"
-    welcome_message
+    if player_board.ship_1.sunk? && player_board.ship_2.sunk?
+      puts "You loose Game over"
+    elsif cpu_board.ship_1.sunk? && cpu_board.ship_2.sunk?
+      puts "You Win!"
+    end
+    new_game
   end
-
-  # def turn(player_board, cpu_board)
-  #   player_shot
-  #   cpu_shot
-  #   if player_board.ship_1.sunk? && player_board.ship_2.sunk? || cpu_board.ship_1.sunk? && cpu_board.ship_2.sunk?
-  #     puts "Game over"
-  #     welcome_message
-  #   end
-  #   turn(player_board, cpu_board)
-  # end
 
   def display_board(p_board, c_board)
     puts "===COMPUTER BOARD==="
@@ -91,25 +83,26 @@ class Game
   def player_shot
     valid_choices = @player_valid_coords
     puts "Enter a coordinate to shoot at: \n"
-    shot = gets.chomp
-    cpu_board.cells[shot].fire_upon
-
-    if @player_valid_coords.any?(shot) == false
+    shot = gets.chomp.upcase
+    until player_valid_coords.any?(shot) do
        puts "Invalid coordinates. Please try again: \n"
-       player_shot
-    elsif cpu_board.cells[shot].empty?
+       !(shot = gets.chomp.upcase)
+    end
+    @player_valid_coords.delete(shot)
+    if cpu_board.cells[shot].empty?
       puts "Your shot #{shot} is a miss \n"
-    elsif cpu_board.cells[shot].empty? == false
-      puts "Your shot #{shot} is a Hit! \n"
     elsif cpu_board.cells[shot].empty? == false && cpu_board.cells[shot].ship.sunk?
       puts "Your shot #{shot} is a Hit! You sunk my BATTLESHIP! \n"
+    elsif cpu_board.cells[shot].empty? == false
+      puts "Your shot #{shot} is a Hit! \n"
     end
+    cpu_board.cells[shot].fire_upon
 
     puts "COMPUTER BOARD \n "
     cpu_board.render_b
   end
 
-# gets valid coords for CPU
+
   def get_cpu_coords(ship)
     cpu_coords = []
     coords = ship.length.times do
@@ -147,39 +140,21 @@ class Game
     puts "The computer has placed their ships"
     puts "Now it is your turn to lay out your ships"
     puts "The cruiser is 3 units long and the submarine is 2 units"
-    @player_board.render_b
+    player_board.render_b
   end
 
   def player_placement(ship)
     # Asks player to put in ships coords
     puts "The #{ship.name} is #{ship.length} spaces. Enter #{ship.length} coords \n" +
     "ex: #{get_cpu_coords(ship).join(" ")}"
-    player_place = gets.chomp
+    player_place = gets.chomp.upcase
     player_coord = player_place.split(" ")
-
-    if @player_board.valid_placement?(ship, player_coord)
-      @player_board.place(ship, player_coord)
-      return player_board.render_b(true)
-    else
+    if player_board.valid_placement?(ship, player_coord) == false
       puts "Those are invalid coordinates. Try again: \n"
       player_placement(ship)
+    elsif player_board.valid_placement?(ship, player_coord)
+      player_board.place(ship, player_coord)
+      return player_board.render_b(true)
     end
   end
 end
-#computer shot and results
-#gets player's input and checks if valid. Valid coords will need to
-#remove the player choice after it has been made so that they
-#cannot repeat coords. This should also print player results
-
-#display_board, player_shot, computer shot
-#executes all functions of turn, will loop until all ships are sunk for a player
-
-#displays a message about who won
-
-cruiser = Ship.new("Cruiser", 3)
-submarine = Ship.new("Submarine", 2)
-cpu_board = Board.new(cruiser, submarine)
-player_board = Board.new(cruiser, submarine)
-game = Game.new(cpu_board, player_board)
-
-game.welcome_message
