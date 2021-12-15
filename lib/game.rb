@@ -11,8 +11,6 @@ class Game
     c_submarine = Ship.new("SSubmarine", 2)
     @cpu_board = Board.new(c_cruiser, c_submarine)
     @player_board = Board.new(p_cruiser, p_submarine)
-    # @cpu_board = cpu_board
-    # @player_board = player_board
     @cpu_valid_coords = @cpu_board.cells.keys
     @player_valid_coords = @player_board.cells.keys
   end
@@ -101,10 +99,10 @@ class Game
     cpu_board.cells[shot].fire_upon
 
     puts "COMPUTER BOARD \n "
-    cpu_board.render_b(true)
+    cpu_board.render_b
   end
 
-# gets valid coords for CPU
+
   def get_cpu_coords(ship)
     cpu_coords = []
     coords = ship.length.times do
