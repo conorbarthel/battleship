@@ -4,15 +4,18 @@ require './lib/game'
 require './lib/cell.rb'
 
 def start
-  cruiser = Ship.new("Cruiser", 3)
-  submarine = Ship.new("Submarine", 2)
-  cpu_board = Board.new
-  player_board = Board.new
-  game = Game.new(cpu_board, player_board, cruiser, submarine)
+  player_cruiser = Ship.new("Cruiser", 3)
+  cpu_cruiser = Ship.new("Cruiser", 3)
+  player_submarine = Ship.new("Submarine", 2)
+  cpu_submarine = Ship.new("Submarine", 2)
+  cpu_board = Board.new(cpu_cruiser, cpu_submarine)
+  player_board = Board.new(player_cruiser, player_submarine)
+  game = Game.new(cpu_board, player_board)
+  # game.start
 
-
-  cpu_board.render_b
-  game.computer_shot
+  game.welcome_message
+  # game.set_up(player_board, cpu_board)
+  # game.turn(player_board, cpu_board)
 end
 
 start()
