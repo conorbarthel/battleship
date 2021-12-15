@@ -36,19 +36,19 @@ class Game
     end
   end
 
-  def play
-    input = gets.chomp
-    if input == "p"
-      set_up(player_board, cpu_board)
-    elsif input == "q"
-      welcome_message
-    elsif input == "stop"
-      puts "Scram"
-    else
-      puts "Invalid input"
-    end
-    welcome_message
-  end
+  # def play
+  #   input = gets.chomp
+  #   if input == "p"
+  #     set_up(player_board, cpu_board)
+  #   elsif input == "q"
+  #     welcome_message
+  #   elsif input == "stop"
+  #     puts "Scram"
+  #   else
+  #     puts "Invalid input"
+  #   end
+  #   welcome_message
+  # end
 
   def set_up(player_board, cpu_board)
     display_board(player_board, cpu_board)
@@ -123,11 +123,9 @@ class Game
     shot = @cpu_valid_coords.delete(@cpu_valid_coords.sample)
     player_board.cells[shot].fire_upon
     if player_board.cells[shot].empty?
-      puts "My shot #{shot} is a miss \n" +
-      ""
+      puts "My shot #{shot} is a miss \n"
     elsif player_board.cells[shot].empty? == false
-      puts "My shot #{shot} is a Hit! \n" +
-      ""
+      puts "My shot #{shot} is a Hit! \n"
     elsif player_board.cells[shot].empty? == false && player_board.cells[shot].ship.sunk?
       puts "My shot #{shot} is a Hit! I sunk your BATTLESHIP! \n" +
       ""
