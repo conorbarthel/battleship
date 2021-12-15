@@ -18,7 +18,7 @@ class Game
   end
 
   def new_game
-    anything = Game.new
+    initialize
     welcome_message
   end
 
@@ -72,7 +72,7 @@ class Game
     elsif cpu_board.ship_1.sunk? && cpu_board.ship_2.sunk?
       puts "You Win!"
     end
-    # new_game
+    new_game
   end
 
   def display_board(p_board, c_board)
