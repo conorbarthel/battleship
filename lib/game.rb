@@ -137,9 +137,9 @@ class Game
     if player_board.cells[shot].empty?
       puts "My shot #{shot} is a miss \n \n"
     elsif player_board.cells[shot].empty? == false && player_board.cells[shot].ship.sunk?
-      puts "My shot #{shot} is a Hit! I sunk your BATTLESHIP! \n \n" +
+      puts "My shot #{shot} is a Hit! I sunk your BATTLESHIP! \n \n"
     elsif player_board.cells[shot].empty? == false
-      puts "My shot #{shot} is a Hit! \n \n" +
+      puts "My shot #{shot} is a Hit! \n \n"
     end
     puts "===PLAYER BOARD===\n"
     player_board.render_b(true)
