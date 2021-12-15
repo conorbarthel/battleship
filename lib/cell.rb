@@ -45,23 +45,3 @@ class Cell
     end
   end
 end
-
-  # def render(display = false)
-  #   var = "."
-  #   @display = display
-  #     if fired_upon? && empty?
-  #       var = "M"
-  #     elsif fired_upon? && empty? == false && @ship.sunk? == false
-  #       var = "H"
-  #     elsif display == true && empty? == false
-  #       var = "S"
-  #     elsif fired_upon? && @ship.sunk?
-  #       var = "X"
-  #     end
-  # var
-  # end
-
-cell = Cell.new("A1")
-cruiser = Ship.new(cruiser, 3)
-cell.place_ship(cruiser)
-puts cell.render
