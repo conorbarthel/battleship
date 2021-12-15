@@ -19,6 +19,7 @@ class Game
 
   def new_game
     anything = Game.new
+    welcome_message
   end
 
   def welcome_message
@@ -33,8 +34,8 @@ class Game
       puts "Scram"
     else
       puts "Invalid input"
+      welcome_message
     end
-    #welcome_message
   end
 
   def play
@@ -71,7 +72,7 @@ class Game
     elsif cpu_board.ship_1.sunk? && cpu_board.ship_2.sunk?
       puts "You Win!"
     end
-    #new_game
+    # new_game
   end
 
   def display_board(p_board, c_board)
@@ -85,10 +86,11 @@ class Game
     valid_choices = @player_valid_coords
     puts "Enter a coordinate to shoot at: \n"
     shot = gets.chomp.upcase
-    if player_valid_coords.any?(shot) == false
+    until player_valid_coords.any?(shot) do
        puts "Invalid coordinates. Please try again: \n"
-       player_shot
-    elsif cpu_board.cells[shot].empty?
+       !(shot = gets.chomp.upcase)
+    end
+    if cpu_board.cells[shot].empty?
       puts "Your shot #{shot} is a miss \n"
     elsif cpu_board.cells[shot].empty? == false && cpu_board.cells[shot].ship.sunk?
       puts "Your shot #{shot} is a Hit! You sunk my BATTLESHIP! \n"
