@@ -1,8 +1,10 @@
 require './lib/cell.rb'
 require './lib/ship.rb'
+
 class Board
   attr_reader  :cells, :ship_1, :ship_2
-
+#Initialized two arguments for the two ships being placed on the board and the
+#hash used to create to board
   def initialize(ship_1, ship_2)
     @cells = {
      "A1" => Cell.new("A1"),
@@ -26,10 +28,14 @@ class Board
     @ship_2 = ship_2
   end
 
+#Takes a coordinate argument and checks if it's equal to any of the keys in the
+#@cell hash
   def valid_coordinate?(cord)
     @cells.keys.any?(cord)
   end
 
+#Takes an argument for the ship being placed and the coords it's being placed
+#on. For every coordinate given it places a ship in that cell.
   def place(ship, coords)
     coords.each do |coord|
       if coord == @cells[coord].coordinate
@@ -38,6 +44,7 @@ class Board
     end
   end
 
+#Returns a new array consisting of the cords argument split up in pairs
   def split_cords(cords)
     split_elements = cords.map do |cord|
       cord.split("")
@@ -45,25 +52,21 @@ class Board
       split_elements
   end
 
+#Returns the first character of every element
   def get_letters(cords)
     get_letters = split_cords(cords).map do |cord|
       cord.first
     end
   end
 
+#Returns the last character in every element, and then changes it to an intiger
   def get_numbers(cords)
     get_numbers = split_cords(cords).map do |cord|
       cord.last.to_i
     end
   end
 
-  def num_consec?(cords)
-    get_numbers(cords).each_cons(2) do |pair|
-     return false if pair[0].next != pair[1]
-    end
-    true
-  end
-
+#Checks if the letters are consecutive
   def alpha_consec?(cords)
     get_letters(cords).each_cons(2) do |pair|
       return false if pair[0].next != pair[1]
@@ -71,6 +74,15 @@ class Board
     true
   end
 
+#Checks if the numbers are consecutive
+  def num_consec?(cords)
+    get_numbers(cords).each_cons(2) do |pair|
+     return false if pair[0].next != pair[1]
+    end
+    true
+  end
+
+#Returns true if the coordinates entered aren't empty
   def overlapping_ship?(coordinates)
     coordinates.any? do |coord|
       if !(@cells[coord].empty?)
@@ -80,6 +92,8 @@ class Board
     return false
   end
 
+#Returns false if any of the coordinates passed into the argument don't equal
+#any valid coordinates
   def valid?(coordinates)
     coordinates.any? do |coord|
       if !(valid_coordinate?(coord))
@@ -89,6 +103,7 @@ class Board
     return true
   end
 
+#Calls multiple edge case methods to test if the placement of a ship is valid
   def valid_placement?(ship, coordinates)
     return false if ship.length != coordinates.size
     return false if valid?(coordinates) != true
@@ -102,6 +117,7 @@ class Board
     end
   end
 
+#If show is true then the ships will be shown when the board is rendered
   def render_b(show = false)
     if show == true
       board_rend = "  1 2 3 4 \n" +
