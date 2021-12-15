@@ -1,4 +1,4 @@
-#~/cell.rb
+require './lib/ship.rb'
 class Cell
   attr_reader :coordinate, :ship, :fired_at
 #initialize variables to be accessed elsewhere
@@ -29,9 +29,8 @@ class Cell
   end
 #renders individual cells
   def render(display = false)
-    var = "."
     @display = display
-      if display == true && empty? == false
+      if display == true && empty? == false && fired_upon? == false && @ship.sunk? == false
         var = "S"
       elsif fired_upon? && empty?
         var = "M"
@@ -39,8 +38,31 @@ class Cell
         var = "H"
       elsif fired_upon? && @ship.sunk?
         var = "X"
-      end
-    var
+      # elsif fired_upon? == false
+      #   var = "."
+      else
+        var = "."
+    end
+  var
   end
 end
-#Dont forget to commit
+
+  # def render(display = false)
+  #   var = "."
+  #   @display = display
+  #     if fired_upon? && empty?
+  #       var = "M"
+  #     elsif fired_upon? && empty? == false && @ship.sunk? == false
+  #       var = "H"
+  #     elsif display == true && empty? == false
+  #       var = "S"
+  #     elsif fired_upon? && @ship.sunk?
+  #       var = "X"
+  #     end
+  # var
+  # end
+
+cell = Cell.new("A1")
+cruiser = Ship.new(cruiser, 3)
+cell.place_ship(cruiser)
+puts cell.render
