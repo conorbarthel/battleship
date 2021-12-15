@@ -35,6 +35,7 @@ class Game
       puts "Scram"
     else
       puts "Invalid input"
+      welcome_message
     end
   end
 
@@ -134,14 +135,11 @@ class Game
     shot = @cpu_valid_coords.delete(@cpu_valid_coords.sample)
     player_board.cells[shot].fire_upon
     if player_board.cells[shot].empty?
-      puts "My shot #{shot} is a miss \n" +
-      ""
+      puts "My shot #{shot} is a miss \n \n"
     elsif player_board.cells[shot].empty? == false && player_board.cells[shot].ship.sunk?
-      puts "My shot #{shot} is a Hit! I sunk your BATTLESHIP! \n" +
-      ""
+      puts "My shot #{shot} is a Hit! I sunk your BATTLESHIP! \n \n" +
     elsif player_board.cells[shot].empty? == false
-      puts "My shot #{shot} is a Hit! \n" +
-      ""
+      puts "My shot #{shot} is a Hit! \n \n" +
     end
     puts "===PLAYER BOARD===\n"
     player_board.render_b(true)

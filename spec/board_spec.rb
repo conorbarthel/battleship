@@ -25,6 +25,11 @@ RSpec.describe "Board" do
     it "values are cell objects" do
       expect(@board.cells.values.sample).to be_a(Cell)
     end
+
+    it "has two ships" do
+      expect(@board.ship_1).to eq(@cruiser)
+      expect(@board.ship_2).to eq(@submarine)
+    end
   end
 
   describe "valid_coordinate?" do
