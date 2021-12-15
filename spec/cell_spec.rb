@@ -9,9 +9,9 @@ RSpec.describe "cell" do
     expect(cell).to be_a (Cell)
     expect(cell.coordinate).to eq("B4")
     expect(cell.ship).to eq(nil)
-end
+  end
 
-  it "is empty?" do
+  it "checks if empty?" do
     cell = Cell.new("B4")
     expect(cell.empty?).to eq(true)
   end
