@@ -90,6 +90,7 @@ class Game
        puts "Invalid coordinates. Please try again: \n"
        !(shot = gets.chomp.upcase)
     end
+    @player_valid_coords.delete(shot)
     if cpu_board.cells[shot].empty?
       puts "Your shot #{shot} is a miss \n"
     elsif cpu_board.cells[shot].empty? == false && cpu_board.cells[shot].ship.sunk?
