@@ -43,8 +43,11 @@ RSpec.describe 'game' do
       expect(@game.cpu_board.valid_placement?(@cpu_cruiser, @game.get_cpu_coords(@cpu_cruiser))).to eq(true)
     end
     it "places ships" do
-      #tested in game, the ship places two ships at valid locations
+      @cpu_board.cpu_placement(@cpu_cruiser)
+      expect(@cpu_board.cells.values.ship.name).to be("CPU_Cruiser")
+      # @cpu_board.cpu_placement(@submarine)
     end
+
   end
 
 
